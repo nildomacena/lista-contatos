@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{adicionando? 'Adicionar contato': feedback? 'Registrar feedback': 'Alterar contato'}}</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list *ngIf="adicionando || alterando">
+    <ion-item>
+      <ion-label floating>Nome</ion-label>
+      <ion-input type="text" [(ngModel)]="contato.nome" #inputNome ></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Telefone</ion-label>
+      <ion-input type="text" [(ngModel)]="contato.telefone" #inputTelefone ></ion-input>
+    </ion-item>
+
+    <h5 text-center>-----Classificação-----</h5>
+    <ion-item>
+      <ion-label>Credibilidade</ion-label>
+      <ion-checkbox color="dark" [checked]="contato.credibilidade" [(ngModel)]="contato.credibilidade" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Financeiro</ion-label>
+      <ion-checkbox color="primary" [checked]="contato.financeiro" [(ngModel)]="contato.financeiro" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Perfil</ion-label>
+      <ion-checkbox color="secondary" [checked]="contato.perfil" [(ngModel)]="contato.perfil" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Network</ion-label>
+      <ion-checkbox color="danger" [checked]="contato.network" [(ngModel)]="contato.network" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Confiança</ion-label>
+      <ion-checkbox color="purple" [checked]="contato.confianca" [(ngModel)]="contato.confianca" ></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <button ion-button (click)="salvar()" full >Salvar</button>
+</ion-content>

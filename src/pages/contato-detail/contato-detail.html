@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Detalhes</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <b>{{contato?.nome}}</b>
+    </ion-card-header>
+    <ion-card-content>
+      Contato: {{contato?.telefone}}<br>
+      Credibilidade com as pessoas: <ion-icon [name]="contato?.credibilidade? 'checkmark': 'close'"></ion-icon><br>
+      Perfil para o projeto: <ion-icon [name]="contato?.perfil? 'checkmark': 'close'"></ion-icon><br>
+      Bom Network: <ion-icon [name]="contato?.network? 'checkmark': 'close'"></ion-icon><br>
+      Condições financeiras: <ion-icon [name]="contato?.financeiro? 'checkmark': 'close'"></ion-icon><br>
+      Confiança em você: <ion-icon [name]="contato?.confianca? 'checkmark': 'close'"></ion-icon><br>
+    </ion-card-content>
+     <ion-row no-padding>
+      <ion-col>
+        <button ion-button clear small color="danger" (click)="editar()" icon-start>
+          <ion-icon name='create'></ion-icon>
+          Editar
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button clear small color="danger" (click)="ligar()" icon-start>
+          <ion-icon name='call'></ion-icon>
+          Ligar
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col><button ion-button color="secondary" (click)="feedback()" icon-start>Registrar feedback</button></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -7,12 +7,16 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<ion-content padding class="conteudo">
+  <h3 text-center>Lista de contatos</h3>
+  <ion-list>
+    <button ion-item *ngFor="let contato of contatos" (click)="selecionaContato(contato)">
+      {{ contato.nome }}<br>
+      {{contato.classificacao}} <ion-icon name="star"></ion-icon>
+    </button>  
+  </ion-list>
+  
+  <ion-fab bottom right >
+    <button ion-fab (click)="adicionarContato()" ><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
