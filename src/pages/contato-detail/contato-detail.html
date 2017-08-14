@@ -19,6 +19,7 @@
       Bom Network: <ion-icon [name]="contato?.network? 'checkmark': 'close'"></ion-icon><br>
       Condições financeiras: <ion-icon [name]="contato?.financeiro? 'checkmark': 'close'"></ion-icon><br>
       Confiança em você: <ion-icon [name]="contato?.confianca? 'checkmark': 'close'"></ion-icon><br>
+      <p *ngIf="contato?.feedback">Feedback: {{contato?.feedback}}</p>
     </ion-card-content>
      <ion-row no-padding>
       <ion-col>
@@ -27,10 +28,16 @@
           Editar
         </button>
       </ion-col>
+      <ion-col>
+        <button ion-button clear small color="danger" (click)="apagar()" icon-start>
+          <ion-icon name='trash'></ion-icon>
+          Apagar
+        </button>
+      </ion-col>
       <ion-col text-center>
-        <button ion-button clear small color="danger" (click)="ligar()" icon-start>
-          <ion-icon name='call'></ion-icon>
-          Ligar
+        <button ion-button clear small color="danger" (click)="arquivar()" icon-start>
+          <ion-icon [name]="contato?.arquivado? 'arrow-round-up': 'archive'"></ion-icon>
+          {{contato?.arquivado? 'Desarquivar': 'Arquivar'}}
         </button>
       </ion-col>
     </ion-row>

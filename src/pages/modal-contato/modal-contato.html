@@ -47,5 +47,11 @@
       <ion-checkbox color="purple" [checked]="contato.confianca" [(ngModel)]="contato.confianca" ></ion-checkbox>
     </ion-item>
   </ion-list>
-  <button ion-button (click)="salvar()" full >Salvar</button>
+  <ion-list *ngIf="feedback">
+    <ion-item>
+      <ion-label floating>Feedback</ion-label>
+      <ion-textarea type="text"  clearInput [(ngModel)]="feedbackInput"></ion-textarea>
+    </ion-item>
+  </ion-list>
+  <button ion-button (click)="feedback? registrarFeedback(): salvar()" full >Salvar</button>
 </ion-content>

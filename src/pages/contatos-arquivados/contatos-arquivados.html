@@ -1,14 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Lista de contatos</ion-title>
+    <ion-title>Contatos arquivados</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="conteudo">
-  <h3 text-center *ngIf="contatos.length < 1" >Sua lista de contatos ainda está vazia. Clique no botão no canto inferior direito para adicionar um novo contato.</h3>
   <ion-list>
     <button ion-item *ngFor="let contato of contatos" (click)="selecionaContato(contato)">
       {{ contato.nome }}<br>

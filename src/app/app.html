@@ -6,9 +6,15 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+    <ion-list *ngIf="logado">
+      <button menuClose ion-item (click)="arquivados()">
+          <ion-icon name="archive"></ion-icon> Contatos Arquivados
+      </button>
+      <button menuClose ion-item (click)="importar()">
+        <ion-icon name="contacts"></ion-icon> Importar contatos
+      </button>
+      <button menuClose ion-item (click)="logout()">
+          <ion-icon name="log-out"></ion-icon> Sair
       </button>
     </ion-list>
   </ion-content>

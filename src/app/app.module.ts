@@ -11,8 +11,12 @@ import { ListPage } from '../pages/list/list';
 
 import { Sim } from '@ionic-native/sim';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Facebook } from '@ionic-native/facebook';
+import { Contacts } from '@ionic-native/contacts';
+
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Fire } from '../providers/fire';
+import { UtilProvider } from '../providers/util';
 
 
 const config = {
@@ -48,8 +52,11 @@ const config = {
     StatusBar,
     SplashScreen,
     Sim,
+    Facebook,
+    Contacts,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Fire
+    Fire,
+    UtilProvider
   ]
 })
 export class AppModule {}

@@ -1,5 +1,7 @@
+import { UtilProvider } from './../../providers/util';
+import { Fire } from './../../providers/fire';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, TextInput } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, TextInput, ToastController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -11,10 +13,20 @@ export class ModalContatoPage {
   alterando: boolean = false;
   feedback: boolean = false;
   contato: any;
+  feedbackInput: string = '';
+
   @ViewChild('inputNome') inputNome: TextInput;
   @ViewChild('inputTelefone') inputTelefone: TextInput;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController, 
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
+    public fire: Fire,
+    public util: UtilProvider
+    ) {
     this.adicionando = this.navParams.get('adicionar');
     this.alterando = this.navParams.get('editar');
     this.feedback = this.navParams.get('feedback');
@@ -23,6 +35,7 @@ export class ModalContatoPage {
     }
     else if(this.alterando || this.feedback){
       this.contato = this.navParams.get('contato')
+      this.contato.feedback? this.feedbackInput = this.contato.feedback: this.feedbackInput = ''; 
     }
   }
 
@@ -32,6 +45,35 @@ export class ModalContatoPage {
 
   dismiss(){
     this.viewCtrl.dismiss();
+  }
+
+  registrarFeedback(){
+    console.log('feedback')
+    this.fire.registrarFeedback(this.contato,this.feedbackInput)
+      .then(() => {
+        let alert = this.alertCtrl.create({
+          title: 'Feedback registrado',
+          message: 'Deseja arquivar o contato?',
+          buttons: [
+            {
+            text: 'Não', role: 'cancel',
+            handler: () => {
+              this.dismiss();
+            }
+            }, {
+              text: 'Sim',
+              handler: () => {
+              this.fire.arquivar(this.contato)
+                .then(() => {
+                  this.util.toast('Contato arquivado');
+                  this.dismiss();
+                })
+            }
+            }
+          ]
+        });
+        alert.present();  
+      })
   }
 
   salvar(){
@@ -64,12 +106,29 @@ export class ModalContatoPage {
           }, {
             text: 'Ok',
             handler: () => {
-            console.log(this.contato);
-          }
+              if(this.adicionando)
+                this.fire.salvarContato(this.contato)
+                  .then(() => {
+                    let toast = this.toastCtrl.create({
+                      message: 'Contato criado com sucesso',
+                      duration: 2500
+                    });
+                    toast.present();
+                    this.dismiss();
+                  })
+                else if(this.alterando){
+                  this.fire.alterarContato(this.contato)
+                    .then(() => {
+                      this.util.toast('Contato alterado com sucesso');
+                      this.dismiss();
+                    })
+                }
+              }
           }
         ]
       });
       alert.present();
     }
   }
+
 }

@@ -7,21 +7,20 @@ import { NavController, ModalController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  contatos: any[] = [
-    {nome: 'Ednildo', telefone: '9930-4488', credibilidade: true, financeiro: true, perfil: true, network: true, confianca: true, contato: false, data: 1502455619 },
-    {nome: 'Maria', telefone: '9920-5478', credibilidade: false, financeiro: true, perfil: true, network: false, confianca: true, contato: false, data: 1502455619 },
-    {nome: 'João', telefone: '9878-8974', credibilidade: true, financeiro: false, perfil: false, network: true, confianca: false, contato: false, data: 1502455619 },
-    {nome: 'Pedro', telefone: '9845-5014', credibilidade: false, financeiro: true, perfil: false, network: true, confianca: false, contato: false, data: 1502455619 },
-    {nome: 'Carla', telefone: '8879-9871', credibilidade: true, financeiro: false, perfil: true, network: false, confianca: true, contato: false, data: 1502455619 }
-  ]
+  contatos: any[] = []
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public fire: Fire) {
-    this.fire.login();
-    this.contatos.map((contato, index) => {
-      contato['classificacao'] = 0;
-      Object.keys(contato).map((key, indexKey) => {
-        if(contato[key] == true)
-          contato['classificacao'] += 1
+    this.fire.getContatos().subscribe(contatos => {
+      this.contatos = contatos;
+      this.contatos.map((contato, index) => {
+        contato['classificacao'] = 0;
+        Object.keys(contato).map((key, indexKey) => {
+          if(contato[key] == true && (key == 'confianca' || key == 'credibilidade' || key == 'network' || key == 'perfil' || key == 'financeiro'))
+            contato['classificacao'] += 1
+        })
       })
+      this.contatos.sort(function(a,b) {
+          return a.classificacao < b.classificacao ? 1 : a.nome > b.classificacao ? -1 : 0;
+      });
     })
   }
 
