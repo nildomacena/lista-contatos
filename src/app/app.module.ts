@@ -13,6 +13,7 @@ import { Sim } from '@ionic-native/sim';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook } from '@ionic-native/facebook';
 import { Contacts } from '@ionic-native/contacts';
+import { SuperTabsModule } from 'ionic2-super-tabs';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Fire } from '../providers/fire';
@@ -40,6 +41,7 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    SuperTabsModule.forRoot(),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],

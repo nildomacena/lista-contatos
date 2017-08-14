@@ -60,6 +60,9 @@ export class MyApp {
   arquivados(){
     this.nav.push('ContatosArquivadosPage');
   }
+  atividades(){
+    this.nav.push('AtividadesPage')
+  }
   importar(){
     this.util.importarContatos();
   }
